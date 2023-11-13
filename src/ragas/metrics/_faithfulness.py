@@ -106,22 +106,23 @@ class Faithfulness(MetricWithLLM):
             outputs = result.generations
 
             scores = []
-            final_answer = "Final verdict for each statement in order:"
+            
+            final_answer = "Endgültiges Urteil für jede Aussage in dieser Reihenfolge:" # was "Final verdict for each statement in order:"
             final_answer = final_answer.lower()
             for i, output in enumerate(outputs):
                 output = output[0].text.lower().strip()
                 if output.find(final_answer) != -1:
                     output = output[output.find(final_answer) + len(final_answer) :]
                     score = sum(
-                        0 if "yes" in answer else 1
+                        0 if "ja" in answer else 1                  # was "yes"
                         for answer in output.strip().split(".")
                         if answer != ""
                     )
                     score = score / len(list_statements[i])
                 else:
-                    score = max(0, output.count("verdict: no")) / len(
+                    score = max(0, output.count("urteil: nein")) / len(
                         list_statements[i]
-                    )
+                    )                                              # was "verdict: no"
 
                 scores.append(1 - score)
 

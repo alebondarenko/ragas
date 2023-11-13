@@ -107,7 +107,7 @@ class Faithfulness(MetricWithLLM):
 
             scores = []
             
-            final_answer = "Endgültiges Urteil für jede Aussage in dieser Reihenfolge:" # was "Final verdict for each statement in order:"
+            final_answer = "EndgÃ¼ltiges Urteil fÃ¼r jede Aussage in dieser Reihenfolge:" # was "Final verdict for each statement in order:"
             final_answer = final_answer.lower()
             for i, output in enumerate(outputs):
                 output = output[0].text.lower().strip()

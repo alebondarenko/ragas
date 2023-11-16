@@ -22,7 +22,7 @@ context:\n{context}
 candidate sentences:\n"""  # noqa: E501
 )
 
-seg = pysbd.Segmenter(language="en", clean=False)
+seg = pysbd.Segmenter(language="de", clean=False)
 
 
 def sent_tokenize(text: str) -> List[str]:

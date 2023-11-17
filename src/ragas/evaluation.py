@@ -131,7 +131,7 @@ def evaluate(
 
 
 def ragas_score(row):
-    reciprocal_sum = np.sum(1.0 / np.array(row))  # type: ignore
+    reciprocal_sum = np.sum(1.0 / np.array(row + 1e-10))  # type: ignore
     return len(row) / reciprocal_sum
 
 

@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 from datasets import Dataset, concatenate_datasets
+import pandas as pd
 
 from ragas._analytics import EvaluationEvent, track
 from ragas.metrics.base import Metric
@@ -119,7 +120,7 @@ def evaluate(
         scores=concatenate_datasets(scores, axis=1),
         dataset=dataset,
         binary_columns=binary_metrics,
-    )
+    ), pd.concat([s.to_pandas() for s in scores], axis=1)
 
 
 @dataclass

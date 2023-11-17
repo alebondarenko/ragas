@@ -84,7 +84,8 @@ def evaluate(
             faithfulness,
         )
 
-        metrics = [answer_relevancy, context_precision, faithfulness, context_recall]
+        metrics = [answer_relevancy, context_precision,
+                   faithfulness, context_recall]
 
     # remap column names from the dataset
     dataset = remap_column_names(dataset, column_map)
@@ -116,11 +117,22 @@ def evaluate(
         )
     )
 
+    metrics_df = pd.concat([s.to_pandas() for s in scores], axis=1)
+
+    if len(metrics_df.columns) > 1:
+        metrics_df["ragas_score"] = metrics_df[metrics_df.columns].apply(
+            ragas_score, axis=1)
+
     return Result(
         scores=concatenate_datasets(scores, axis=1),
         dataset=dataset,
         binary_columns=binary_metrics,
     ), pd.concat([s.to_pandas() for s in scores], axis=1)
+
+
+def ragas_score(row):
+    reciprocal_sum = np.sum(1.0 / np.array(row))  # type: ignore
+    return len(row) / reciprocal_sum
 
 
 @dataclass

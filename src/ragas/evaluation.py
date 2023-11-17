@@ -127,7 +127,7 @@ def evaluate(
         scores=concatenate_datasets(scores, axis=1),
         dataset=dataset,
         binary_columns=binary_metrics,
-    ), pd.concat([s.to_pandas() for s in scores], axis=1)
+    ), metrics_df
 
 
 def ragas_score(row):

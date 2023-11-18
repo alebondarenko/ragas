@@ -122,6 +122,13 @@ def evaluate(
     if len(metrics_df.columns) > 1:
         metrics_df["ragas_score"] = metrics_df[metrics_df.columns].apply(
             ragas_score, axis=1)
+        
+    if 'ragas_score' in metrics_df.columns:
+        metrics_df["mean"] = metrics_df.drop('ragas_score', axis=1).apply(
+            lambda x: x.mean(), axis=1)
+    else:
+        metrics_df["mean"] = metrics_df.apply(
+            lambda x: x.mean(), axis=1)
 
     return Result(
         scores=concatenate_datasets(scores, axis=1),

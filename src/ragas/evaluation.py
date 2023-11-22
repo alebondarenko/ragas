@@ -122,7 +122,7 @@ def evaluate(
     if len(metrics_df.columns) > 1:
         metrics_df["ragas_score"] = metrics_df[metrics_df.columns].apply(
             ragas_score, axis=1)
-        
+
     if 'ragas_score' in metrics_df.columns:
         metrics_df["mean"] = metrics_df.drop('ragas_score', axis=1).apply(
             lambda x: x.mean(), axis=1)
@@ -178,3 +178,7 @@ class Result(dict):
             score_strs.append(f"'ragas_score': {ragas_score:0.4f}")
         score_strs.extend([f"'{k}': {v:0.4f}" for k, v in scores.items()])
         return "{" + ", ".join(score_strs) + "}"
+
+    def return_scores(self):
+        scores = self.copy()
+        return scores
